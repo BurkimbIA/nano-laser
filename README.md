@@ -4,6 +4,18 @@ The [LASER](https://github.com/facebookresearch/LASER) sentence encoders (LASER2
 models) in plain torch. It is a drop-in replacement for [`laser_encoders`](https://pypi.org/project/laser-encoders/),
 without fairseq: the same API, the same checkpoints, the same embeddings.
 
+## Install
+
+The package is not on PyPI yet; install it from GitHub:
+
+```bash
+pip install git+https://github.com/BurkimbIA/nano-laser.git
+# or, in a uv project
+uv add git+https://github.com/BurkimbIA/nano-laser.git
+```
+
+Append `@<commit or tag>` to the URL to pin a version. It needs Python ≥ 3.10 and torch ≥ 2.5.
+
 ## Usage
 
 Replace the import, nothing else:
