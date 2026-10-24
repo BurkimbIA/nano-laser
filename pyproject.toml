@@ -3,6 +3,8 @@ name = "nano-laser"
 version = "0.1.0"
 description = "LASER sentence encoders in plain torch: a drop-in replacement for laser_encoders, without fairseq"
 readme = "README.md"
+license = "BSD-3-Clause"
+license-files = ["LICENSE"]
 authors = [
     { name = "MNIKIEMA", email = "nikiemamahamadi01@gmail.com" },
     { name = "Salif Sawadogo", email = "sawallesalfo@gmail.com" },

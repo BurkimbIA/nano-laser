@@ -74,5 +74,6 @@ To regenerate the parity reference, see `tests/data/make_reference.py`.
 
 ## License
 
-The code adapted from LASER keeps its BSD license, Copyright (c) Facebook, Inc. and its affiliates; each such file
-says so in its header.
+[BSD 3-Clause](LICENSE), Copyright (c) 2026, BurkimbIA. The code adapted from LASER keeps its copyright,
+Copyright (c) Facebook, Inc. and its affiliates, also under the BSD license; each such file says so in its header.
+The LASER model weights are downloaded from Facebook and are not covered by this license.
