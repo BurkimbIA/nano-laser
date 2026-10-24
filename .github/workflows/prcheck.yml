@@ -9,7 +9,7 @@ on:
     branches:
       - main
     paths:
-      - 'my_package/**'
+      - 'src/nano_laser/**'
 
 jobs:
   changelog:
