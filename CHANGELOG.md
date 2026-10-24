@@ -11,6 +11,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 - `nano_laser`: LASER2 and LASER3 encoders in plain torch, a drop-in replacement for `laser_encoders` 0.0.2 without fairseq.
 - Parity tests against embeddings from `laser_encoders`, run when the models are cached locally.
+- A workflow that publishes to PyPI with trusted publishing when a `vX.Y.Z` tag is pushed.
 
 ### Security
 
