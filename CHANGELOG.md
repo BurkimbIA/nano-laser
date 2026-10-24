@@ -7,6 +7,11 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## Unreleased
 
+### Added
+
+- `nano_laser`: LASER2 and LASER3 encoders in plain torch, a drop-in replacement for `laser_encoders` 0.0.2 without fairseq.
+- Parity tests against embeddings from `laser_encoders`, run when the models are cached locally.
+
 ### Security
 
 - Bumped the `uv-pre-commit` hook to uv 0.13.4. Earlier versions ship the compromised emSign ECC Root CA - G3 root, which certifi 2026.10.19 and uv 0.13.4 remove.

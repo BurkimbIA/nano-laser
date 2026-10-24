@@ -1,23 +1,26 @@
 [project]
-name = "python-package-template"
+name = "nano-laser"
 version = "0.1.0"
-description = "A Template for Python Packages"
+description = "LASER sentence encoders in plain torch: a drop-in replacement for laser_encoders, without fairseq"
 readme = "README.md"
 authors = [
     { name = "MNIKIEMA", email = "nikiemamahamadi01@gmail.com" }
 ]
-requires-python = ">=3.13"
-dependencies = []
-
-[project.scripts]
-python-package-template = "python_package_template:main"
+requires-python = ">=3.10"
+dependencies = [
+    "numpy>=1.21.3",
+    "sacremoses==0.1.0",  # the version laser_encoders pins: punctuation normalisation must not drift
+    "sentencepiece>=0.1.99",
+    "torch>=2.5",
+    "unicategories>=0.1.2",
+]
 
 [build-system]
 requires = ["hatchling"]
 build-backend = "hatchling.build"
 
 [tool.hatch.build.targets.wheel]
-packages = ["src/python_package_template"]
+packages = ["src/nano_laser"]
 
 [dependency-groups]
 dev = [
@@ -29,7 +32,7 @@ dev = [
 
 [tool.ruff]
 line-length = 110
-target-version = "py313"
+target-version = "py310"
 exclude = [
     ".venv",
     "build",
@@ -44,7 +47,7 @@ fixable = ["ALL"]
 "**/*.py" = ["E501"]
 
 [tool.ruff.lint.isort]
-known-first-party = ["python_package_template"]
+known-first-party = ["nano_laser"]
 
 [tool.ruff.format]
 # Use double quotes for strings.

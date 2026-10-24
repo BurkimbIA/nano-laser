@@ -1,24 +1,66 @@
-# Python Package Template
+# nano-laser
 
-This repository serves as a template for creating Python packages. It includes a standard project structure, setup configurations, and best practices to help you get started quickly with your own Python package development.
-
-## Features
-
-- Linting with ruff
-- Formatting with ruff
-- Testing with pytest
-- Continuous integration with GitHub Actions
+The [LASER](https://github.com/facebookresearch/LASER) sentence encoders (LASER2 and the LASER3 language
+models) in plain torch. It is a drop-in replacement for [`laser_encoders`](https://pypi.org/project/laser-encoders/),
+without fairseq: the same API, the same checkpoints, the same embeddings.
 
 ## Usage
 
-1. [Create a new repository](https://github.com/new?template_name=python-package-template&template_owner=BurkimbIA) using this template.
-2. Clone your new repository to your local machine.
-3. Install [uv](https://github.com/astral-sh/uv) if you haven't already
-4. Install [just](https://github.com/casey/just)
-5. Install [prek](https://github.com/j178/prek) if you haven't already
-6. You can then customize the package by modifying the files and structure as needed.
-7. Commit and push your changes to your repository and check the CI/CD pipeline for any issues.
+Replace the import, nothing else:
 
-## Contributing
+```python
+from nano_laser import LaserEncoderPipeline  # was: from laser_encoders import LaserEncoderPipeline
 
-We welcome contributions from the community! Please follow the [Contributing Guidelines](https://github.com/BurkimbIA/python-package-template/blob/main/CONTRIBUTING.md) to contribute to this project.
+encoder = LaserEncoderPipeline(lang="mos_Latn")
+embeddings = encoder.encode_sentences(["Laafi bala?"], normalize_embeddings=True)  # (1, 1024)
+```
+
+`initialize_tokenizer`, `initialize_encoder`, `SentenceEncoder`, `LaserTokenizer` and the module layout
+(`nano_laser.models`, `nano_laser.laser_tokenizer`, `nano_laser.download_models`, `nano_laser.language_list`)
+mirror `laser_encoders`. The models are downloaded from the same place into the same cache,
+`~/.cache/laser_encoders`, so models already downloaded by `laser_encoders` are reused.
+
+Like `laser_encoders`, the encoder takes one sentence per batch by default. Batch on GPU with the
+`SentenceEncoder` options, which `initialize_encoder` and `LaserEncoderPipeline` now pass on:
+
+```python
+encoder = LaserEncoderPipeline(lang="dyu_Latn", max_sentences=64)  # or max_tokens=..., cpu=True, fp16=True
+```
+
+## Parity
+
+Against `laser_encoders` 0.0.2 (fairseq 0.12.2, torch 2.1.2), on 85 sentences of 0 to 2,000 tokens:
+
+| model | max abs. difference (cpu) | min cosine (cpu and gpu, batched or not) |
+| --- | --- | --- |
+| LASER2 (LSTM) | 1.3e-6 | 0.9999996 |
+| LASER3 mos_Latn, dyu_Latn, fuv_Latn (transformer) | 1.4e-5 | 0.9999998 |
+
+`tests/test_parity.py` checks this against `tests/data/reference.npz` whenever the models are in the cache
+(or in `LASER_MODEL_DIR`); it is skipped otherwise, so CI downloads nothing.
+
+## Differences from laser_encoders
+
+- No fairseq: the transformer encoder and fairseq's `Dictionary` are re-implemented in `nano_laser/models.py`.
+- Checkpoints load with `torch.load(weights_only=True)`: they only hold tensors and an `argparse.Namespace`.
+- LASER3 works with `max_sentences > 1`. In `laser_encoders` on torch ≥ 1.12, fairseq's BetterTransformer path fails on
+  left-padded batches (`RuntimeError: Mask Type should be defined`).
+- With `sentemb_criterion="cls"` and padded batches, each sentence gets its own `<s>` state
+  (none of the published LASER models use `cls`).
+- Importing the package does not call `logging.basicConfig`, and a failed download raises instead of saving the
+  error page as the model.
+
+## Development
+
+```bash
+just install  # uv sync and the pre-commit hooks
+just test
+just lint
+```
+
+To regenerate the parity reference, see `tests/data/make_reference.py`.
+
+## License
+
+The code adapted from LASER keeps its BSD license, Copyright (c) Facebook, Inc. and its affiliates; each such file
+says so in its header.

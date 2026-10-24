@@ -1,6 +1,6 @@
 # Release process
 
-This guide describes how to release `python-package-template`.
+This guide describes how to release `nano-laser`.
 
 ## Versioning
 
