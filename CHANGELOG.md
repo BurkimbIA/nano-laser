@@ -9,7 +9,13 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Fixed
 
+- `LaserModelDownloader` creates a `model_dir` that does not exist yet, not only the default cache, and a download now gives up after 60 seconds without data instead of hanging.
+- `encode_sentences([])` returns an empty `(0, dim)` array instead of raising `ValueError`.
 - On PyPI, the author line read "Facebook AI Research" with a link to a maintainer's address. The three authors are now listed by name, and the maintainers' contact addresses are at burkimbia.com.
+
+### Added
+
+- A `dyu_Latn` case in the parity tests, and `LASER_PARITY_REQUIRED=1` to download missing models instead of skipping.
 
 ## v0.1.1 - 2026-10-26
 

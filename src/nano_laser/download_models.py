@@ -13,10 +13,12 @@ logger = logging.getLogger(__name__)
 
 
 class LaserModelDownloader:
+    timeout = 60  # seconds without data before a download gives up
+
     def __init__(self, model_dir: str | None = None):
         if model_dir is None:
             model_dir = os.path.expanduser("~/.cache/laser_encoders")  # shared with laser_encoders
-            os.makedirs(model_dir, exist_ok=True)
+        os.makedirs(model_dir, exist_ok=True)
 
         self.model_dir = Path(model_dir)
         self.base_url = "https://dl.fbaipublicfiles.com/nllb/laser"
@@ -31,7 +33,10 @@ class LaserModelDownloader:
         # download next to the target, then rename, so an interrupted download never looks complete
         fd, temp_file_path = tempfile.mkstemp(dir=self.model_dir, prefix=f".{filename}.")
         try:
-            with os.fdopen(fd, "wb") as tf, urllib.request.urlopen(f"{self.base_url}/{filename}") as response:
+            with (
+                os.fdopen(fd, "wb") as tf,
+                urllib.request.urlopen(f"{self.base_url}/{filename}", timeout=self.timeout) as response,
+            ):
                 while chunk := response.read(1 << 20):
                     tf.write(chunk)
             os.replace(temp_file_path, local_file_path)

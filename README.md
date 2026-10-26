@@ -60,7 +60,8 @@ with a min cosine of 0.9999997 and a max abs. difference of 2.0e-5. They come in
 The results per language are in [`scripts/results/laser3_parity.jsonl`](https://github.com/BurkimbIA/nano-laser/blob/main/scripts/results/laser3_parity.jsonl).
 
 `tests/test_parity.py` checks this against `tests/data/reference.npz` whenever the models are in the cache
-(or in `LASER_MODEL_DIR`); it is skipped otherwise, so CI downloads nothing.
+(or in `LASER_MODEL_DIR`), and is skipped otherwise. With `LASER_PARITY_REQUIRED=1` it downloads the missing
+models instead.
 
 ## Differences from laser_encoders
 
