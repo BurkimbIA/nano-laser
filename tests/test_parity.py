@@ -1,7 +1,7 @@
 """The real LASER models against embeddings computed by laser_encoders 0.0.2 (fairseq 0.12.2, torch 2.1.2, cpu).
 
 Each case is skipped unless its files are already in LASER_MODEL_DIR (default ~/.cache/laser_encoders).
-With LASER_PARITY_REQUIRED=1 (as in CI), missing models are downloaded instead, so a failed download fails
+With LASER_PARITY_REQUIRED=1, missing models are downloaded instead, so a failed download fails
 the test. Regenerate the reference with tests/data/make_reference.py.
 """
 

@@ -14,7 +14,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Added
 
-- A `parity` workflow that checks the embeddings against `laser_encoders` on pull requests, with the real models, and a `dyu_Latn` case in the parity tests.
+- A `dyu_Latn` case in the parity tests, and `LASER_PARITY_REQUIRED=1` to download missing models instead of skipping.
 
 ## v0.1.1 - 2026-10-26
 

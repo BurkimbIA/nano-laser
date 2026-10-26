@@ -61,7 +61,7 @@ The results per language are in [`scripts/results/laser3_parity.jsonl`](https://
 
 `tests/test_parity.py` checks this against `tests/data/reference.npz` whenever the models are in the cache
 (or in `LASER_MODEL_DIR`), and is skipped otherwise. With `LASER_PARITY_REQUIRED=1` it downloads the missing
-models instead: the `parity` workflow runs it that way on pull requests that touch the code or the tests.
+models instead.
 
 ## Differences from laser_encoders
 
