@@ -123,3 +123,15 @@ def test_normalize_embeddings(tmp_path):
 def test_unknown_words_map_to_unk(tmp_path):
     encoder = SentenceEncoder(lstm_checkpoint(tmp_path / "laser2.pt"), cpu=True)
     assert encoder._tokenize("▁w0  ▁nope").tolist() == [4, 3, 2]
+
+
+@pytest.mark.parametrize("fp16", [False, True])
+def test_no_sentences_gives_an_empty_array(tmp_path, vocab, fp16):
+    lstm = SentenceEncoder(lstm_checkpoint(tmp_path / "laser2.pt"), cpu=True, fp16=fp16)
+    transformer = SentenceEncoder(
+        transformer_checkpoint(tmp_path / "laser3.pt", vocab), spm_vocab=vocab, cpu=True, fp16=fp16
+    )
+    for encoder in [lstm, transformer]:
+        empty, one = encoder.encode_sentences([]), encoder.encode_sentences(sentences(1))
+        assert empty.shape == (0, one.shape[1])
+        assert empty.dtype == one.dtype
