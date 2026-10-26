@@ -76,7 +76,7 @@ line-ending = "auto"
 max-complexity = 10
 
 [tool.pytest.ini_options]
-testspath = [
+testpaths = [
     "tests"
 ]
 addopts = "-ra -q"
