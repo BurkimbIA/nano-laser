@@ -6,15 +6,14 @@ without fairseq: the same API, the same checkpoints, the same embeddings.
 
 ## Install
 
-The package is not on PyPI yet; install it from GitHub:
-
 ```bash
-pip install git+https://github.com/BurkimbIA/nano-laser.git
+pip install nano-laser
 # or, in a uv project
-uv add git+https://github.com/BurkimbIA/nano-laser.git
+uv add nano-laser
 ```
 
-Append `@<commit or tag>` to the URL to pin a version. It needs Python ≥ 3.10 and torch ≥ 2.5.
+It needs Python ≥ 3.10 and torch ≥ 2.5. To get unreleased changes, install from GitHub instead:
+`pip install git+https://github.com/BurkimbIA/nano-laser.git` (append `@<commit or tag>` to pin one).
 
 ## Usage
 
