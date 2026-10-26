@@ -16,7 +16,12 @@ from nano_laser.language_list import SPM_LANGUAGE
 
 DATA = Path(__file__).parent / "data"
 MODEL_DIR = Path(os.environ.get("LASER_MODEL_DIR", "~/.cache/laser_encoders")).expanduser()
-LANGS = {"english": "laser2", "mos_Latn": "laser3-mos_Latn.v1", "fuv_Latn": "laser3-fuv_Latn.v1"}
+LANGS = {
+    "english": "laser2",
+    "mos_Latn": "laser3-mos_Latn.v1",
+    "dyu_Latn": "laser3-dyu_Latn.v1",
+    "fuv_Latn": "laser3-fuv_Latn.v1",  # the only one here with its own spm
+}
 
 
 def model_files(lang):
