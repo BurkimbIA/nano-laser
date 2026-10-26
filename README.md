@@ -48,6 +48,18 @@ Against `laser_encoders` 0.0.2 (fairseq 0.12.2, torch 2.1.2), on 85 sentences of
 | LASER2 (LSTM) | 1.3e-6 | 0.9999996 |
 | LASER3 mos_Latn, dyu_Latn, fuv_Latn (transformer) | 1.4e-5 | 0.9999998 |
 
+Every LASER3 model is also checked, on a Colab T4 with 18 sentences, one at a time and in batches of 8
+([`notebooks/check_laser3.ipynb`](notebooks/check_laser3.ipynb)): all 147 give the same tokens and embeddings,
+with a min cosine of 0.9999997 and a max abs. difference of 2.0e-5. They come in three kinds:
+
+| LASER3 models | languages |
+| --- | --- |
+| 12-layer transformer, `maxpool` pooling | 135 |
+| LSTM, like LASER2 | 10: `als_Latn`, `cym_Latn`, `hye_Armn`, `kat_Geor`, `khk_Cyrl`, `khm_Khmr`, `ltz_Latn`, `mlt_Latn`, `quy_Latn`, `ydd_Hebr` |
+| 12-layer transformer, `cls` pooling on a leading `<s>` | 2: `lij_Latn`, `wol_Latn` |
+
+The results per language are in [`scripts/results/laser3_parity.jsonl`](scripts/results/laser3_parity.jsonl).
+
 `tests/test_parity.py` checks this against `tests/data/reference.npz` whenever the models are in the cache
 (or in `LASER_MODEL_DIR`); it is skipped otherwise, so CI downloads nothing.
 
@@ -57,8 +69,9 @@ Against `laser_encoders` 0.0.2 (fairseq 0.12.2, torch 2.1.2), on 85 sentences of
 - Checkpoints load with `torch.load(weights_only=True)`: they only hold tensors and an `argparse.Namespace`.
 - LASER3 works with `max_sentences > 1`. In `laser_encoders` on torch ≥ 1.12, fairseq's BetterTransformer path fails on
   left-padded batches (`RuntimeError: Mask Type should be defined`).
-- With `sentemb_criterion="cls"` and padded batches, each sentence gets its own `<s>` state
-  (none of the published LASER models use `cls`).
+- With `sentemb_criterion="cls"`, each sentence of a batch gets its own `<s>` state whatever the padding side.
+  `laser_encoders` takes the `<s>` states in position order, which is only right when they share a position:
+  true for the two `cls` models (`lij_Latn`, `wol_Latn`), which pad on the right.
 - Importing the package does not call `logging.basicConfig`, and a failed download raises instead of saving the
   error page as the model.
 
