@@ -5,10 +5,15 @@ description = "LASER sentence encoders in plain torch: a drop-in replacement for
 readme = "README.md"
 license = "BSD-3-Clause"
 license-files = ["LICENSE"]
+# PyPI shows a single email per field: the names go in authors, the contact addresses in maintainers
 authors = [
-    { name = "MNIKIEMA", email = "nikiemamahamadi01@gmail.com" },
-    { name = "Salif Sawadogo", email = "sawallesalfo@gmail.com" },
+    { name = "MNIKIEMA" },
+    { name = "Salif Sawadogo" },
     { name = "Facebook AI Research" },  # LASER and laser_encoders, which this package adapts
+]
+maintainers = [
+    { name = "MNIKIEMA", email = "mahamadi.nikiema@burkimbia.com" },
+    { name = "Salif Sawadogo", email = "salif.sawadogo@burkimbia.com" },
 ]
 requires-python = ">=3.10"
 dependencies = [

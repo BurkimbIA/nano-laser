@@ -7,6 +7,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## Unreleased
 
+### Fixed
+
+- On PyPI, the author line read "Facebook AI Research" with a link to a maintainer's address. The three authors are now listed by name, and the maintainers' contact addresses are at burkimbia.com.
+
 ## v0.1.1 - 2026-10-26
 
 ### Fixed
