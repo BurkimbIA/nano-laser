@@ -84,4 +84,17 @@ gh release create vX.Y.Z --title "vX.Y.Z" --generate-notes
 - Confirm the GitHub Release title, version, and notes are correct.
 - Confirm that `CHANGELOG.md` has an empty `Unreleased` section for the next change.
 
-This repository does not currently contain a package publishing workflow (e.g. to PyPI). If one is added, document its trigger and verification steps here before relying on it for a release.
+## Publish to PyPI
+
+Pushing the tag runs [`publish.yml`](.github/workflows/publish.yml): it checks that the tag is `v` + `project.version`,
+builds the sdist and wheel with `uv build`, and publishes them to PyPI through trusted publishing.
+
+One-time setup, before the first release:
+
+- On PyPI, add a trusted publisher for the project `nano-laser`: owner `BurkimbIA`, repository `nano-laser`,
+  workflow `publish.yml`, environment `pypi` (a "pending publisher" if the project does not exist yet).
+- On GitHub, create the `pypi` environment (Settings → Environments), optionally with required reviewers so that
+  each upload waits for an approval.
+
+After the workflow succeeds, confirm that https://pypi.org/project/nano-laser/ shows the new version and that
+`pip install nano-laser==X.Y.Z` installs it.
