@@ -48,7 +48,7 @@ Against `laser_encoders` 0.0.2 (fairseq 0.12.2, torch 2.1.2), on 85 sentences of
 | LASER3 mos_Latn, dyu_Latn, fuv_Latn (transformer) | 1.4e-5 | 0.9999998 |
 
 Every LASER3 model is also checked, on a Colab T4 with 18 sentences, one at a time and in batches of 8
-([`notebooks/check_laser3.ipynb`](notebooks/check_laser3.ipynb)): all 147 give the same tokens and embeddings,
+([`notebooks/check_laser3.ipynb`](https://github.com/BurkimbIA/nano-laser/blob/main/notebooks/check_laser3.ipynb)): all 147 give the same tokens and embeddings,
 with a min cosine of 0.9999997 and a max abs. difference of 2.0e-5. They come in three kinds:
 
 | LASER3 models | languages |
@@ -57,7 +57,7 @@ with a min cosine of 0.9999997 and a max abs. difference of 2.0e-5. They come in
 | LSTM, like LASER2 | 10: `als_Latn`, `cym_Latn`, `hye_Armn`, `kat_Geor`, `khk_Cyrl`, `khm_Khmr`, `ltz_Latn`, `mlt_Latn`, `quy_Latn`, `ydd_Hebr` |
 | 12-layer transformer, `cls` pooling on a leading `<s>` | 2: `lij_Latn`, `wol_Latn` |
 
-The results per language are in [`scripts/results/laser3_parity.jsonl`](scripts/results/laser3_parity.jsonl).
+The results per language are in [`scripts/results/laser3_parity.jsonl`](https://github.com/BurkimbIA/nano-laser/blob/main/scripts/results/laser3_parity.jsonl).
 
 `tests/test_parity.py` checks this against `tests/data/reference.npz` whenever the models are in the cache
 (or in `LASER_MODEL_DIR`); it is skipped otherwise, so CI downloads nothing.
@@ -86,6 +86,6 @@ To regenerate the parity reference, see `tests/data/make_reference.py`.
 
 ## License
 
-[BSD 3-Clause](LICENSE), Copyright (c) 2026, BurkimbIA. The code adapted from LASER keeps its copyright,
+[BSD 3-Clause](https://github.com/BurkimbIA/nano-laser/blob/main/LICENSE), Copyright (c) 2026, BurkimbIA. The code adapted from LASER keeps its copyright,
 Copyright (c) Facebook, Inc. and its affiliates, also under the BSD license; each such file says so in its header.
 The LASER model weights are downloaded from Facebook and are not covered by this license.

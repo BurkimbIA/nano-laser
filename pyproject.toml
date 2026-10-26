@@ -19,6 +19,12 @@ dependencies = [
     "unicategories>=0.1.2",
 ]
 
+[project.urls]
+Homepage = "https://github.com/BurkimbIA/nano-laser"
+Repository = "https://github.com/BurkimbIA/nano-laser"
+Changelog = "https://github.com/BurkimbIA/nano-laser/blob/main/CHANGELOG.md"
+Issues = "https://github.com/BurkimbIA/nano-laser/issues"
+
 [build-system]
 requires = ["hatchling"]
 build-backend = "hatchling.build"
