@@ -181,6 +181,9 @@ class SentenceEncoder:
                 norms = np.linalg.norm(encoded_batch, axis=1, keepdims=True)
                 encoded_batch = encoded_batch / norms
             results.append(encoded_batch)
+        if not results:  # np.vstack needs at least one batch
+            dtype = self.encoder.embed_tokens.weight.dtype
+            return torch.empty(0, self.encoder.output_units, dtype=dtype).numpy()
         return np.vstack(results)[np.argsort(indices, kind=self.sort_kind)]
 
 
@@ -298,6 +301,7 @@ class LaserTransformerEncoder(nn.Module):
                 raise NotImplementedError(f"{name}={getattr(cfg, name)} is not supported")
 
         embed_dim = cfg.encoder_embed_dim
+        self.output_units = embed_dim  # as LaserLstmEncoder: the size of a sentence embedding
         self.sentemb_criterion = cfg.sentemb_criterion
         self.padding_idx = PAD
         self.bos_idx = BOS

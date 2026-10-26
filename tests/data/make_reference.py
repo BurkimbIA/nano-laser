@@ -16,7 +16,7 @@ from laser_encoders import initialize_encoder, initialize_tokenizer
 DATA = Path(__file__).parent
 sentences = json.loads((DATA / "sentences.json").read_text(encoding="utf-8"))
 reference = {}
-for lang in ["english", "mos_Latn", "fuv_Latn"]:
+for lang in ["english", "mos_Latn", "dyu_Latn", "fuv_Latn"]:
     tokenizer = initialize_tokenizer(lang=lang)
     encoder = initialize_encoder(lang=lang)
     encoder.use_cuda = False
