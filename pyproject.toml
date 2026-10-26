@@ -12,7 +12,7 @@ authors = [
     { name = "Facebook AI Research" },  # LASER and laser_encoders, which this package adapts
 ]
 maintainers = [
-    { name = "MNIKIEMA", email = "mahamadi.nikiema@burkimbia.com" },
+    { name = "MNIKIEMA", email = "nikiemamahamadi01@gmail.com" },
     { name = "Salif Sawadogo", email = "salif.sawadogo@burkimbia.com" },
 ]
 requires-python = ">=3.10"
