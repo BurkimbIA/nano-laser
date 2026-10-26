@@ -7,6 +7,17 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## Unreleased
 
+## v0.1.1 - 2026-10-26
+
+### Fixed
+
+- README links to the notebook, the parity results and the license now work on PyPI.
+- The README documents installing from PyPI (`pip install nano-laser`, `uv add nano-laser`).
+
+### Added
+
+- Project URLs (repository, changelog, issues) in the package metadata, shown on PyPI.
+
 ## v0.1.0 - 2026-10-26
 
 ### Added
