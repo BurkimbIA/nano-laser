@@ -7,6 +7,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## Unreleased
 
+## v0.1.2 - 2026-10-27
+
 ### Fixed
 
 - `LaserModelDownloader` creates a `model_dir` that does not exist yet, not only the default cache, and a download now gives up after 60 seconds without data instead of hanging.
