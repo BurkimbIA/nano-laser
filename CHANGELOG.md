@@ -7,9 +7,15 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## Unreleased
 
+## v0.1.3 - 2026-11-14
+
 ### Fixed
 
 - Importing nano-laser on Python 3.12 no longer prints `UserWarning: Incompatible unicategories database`. Non-printable characters are now found with the standard `unicodedata` module, and the `unicategories` dependency (with `appdirs` and its `~/.cache/unicategories/` folder) is gone.
+
+### Changed
+
+- On PyPI, the author and maintainer `MNIKIEMA` is listed by full name, Mahamadi Nikiema.
 
 ## v0.1.2 - 2026-10-27
 
