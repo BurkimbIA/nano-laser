@@ -5,18 +5,26 @@ import gzip
 import logging
 import os
 import re
+import sys
+import unicodedata
+from functools import cache
 from pathlib import Path
 from typing import IO
 
 import sentencepiece as spm
 from sacremoses import MosesDetokenizer, MosesPunctNormalizer
-from unicategories import categories
 
 from nano_laser.download_models import LaserModelDownloader
 from nano_laser.language_list import LASER2_LANGUAGE, LASER3_LANGUAGE, SPM_LANGUAGE
 
 SPACE_NORMALIZER = re.compile(r"\s+")
-NON_PRINT_CHARS = set(categories["C"].characters())
+
+
+@cache
+def _non_print_chars() -> frozenset[str]:
+    """Characters of Unicode category C (control, format, surrogate, private use, unassigned)."""
+    return frozenset(chr(i) for i in range(sys.maxunicode + 1) if unicodedata.category(chr(i))[0] == "C")
+
 
 logger = logging.getLogger(__name__)
 
@@ -61,7 +69,8 @@ class LaserTokenizer:
 
     def tokenize(self, text: str) -> str:
         # Preprocessing
-        sentence_text = "".join([c if c not in NON_PRINT_CHARS else " " for c in text])
+        npc = _non_print_chars()
+        sentence_text = "".join([" " if c in npc else c for c in text])
         if self.normalize_punct:
             sentence_text = self.moses_punct_normalizer.normalize(sentence_text)
         if self.descape:
